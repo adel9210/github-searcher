@@ -1,0 +1,13 @@
+.search-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: calc(100vh - 100px);
+  transition: all 2.5s ease-in-out;
+
+  &.has-search-value {
+    height: auto;
+    display: block;
+  }
+}
