@@ -1,4 +1,3 @@
-import './index.scss';
 
 interface Props {
     onChange: (value: string) => void;

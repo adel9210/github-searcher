@@ -1,0 +1,28 @@
+.user {
+  display: flex;
+  align-items: center;
+
+  &__avatar {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: middle;
+    border-radius: 50%;
+    box-shadow: rgba(31, 35, 40, 0.15) 0px 0px 0px 1px;
+    height: 40px;
+    width: 40px;
+    margin-right: 16px;
+    margin-top: 4px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+
+    &__name {
+      font-size: 14px;
+      text-decoration: none;
+      color: #0969da;
+    }
+  }
+}

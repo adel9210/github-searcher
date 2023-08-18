@@ -23,7 +23,7 @@ export const appSlice = createSlice({
         },
         setSearchEntity: (state, action: PayloadAction<Entity>) => {
             state.searchEntity = action.payload
-        },
+        }
     },
 })
 

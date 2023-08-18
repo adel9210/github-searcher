@@ -1,24 +1,24 @@
 export interface Issue {
   id: number;
-  url: string;
-  repository_url: string;
   title: string;
+  html_url: string;
+  user: User
 }
 
 export interface User {
   id: number;
   login: string;
   avatar_url: string;
-  url: string;
+  html_url: string;
 }
 
 export interface Repo {
   id: number;
   full_name: string;
   description: string;
-  url: string;
-  score: number;
+  html_url: string;
   owner: User;
+  topics: string[]
 }
 
 export type ListType = User | Issue | Repo

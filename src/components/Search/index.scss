@@ -7,6 +7,10 @@
     display: flex;
     align-items: center;
     gap: 20px;
+
+    &__slogan {
+      color: #999;
+    }
   }
 
   &__search {

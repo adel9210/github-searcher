@@ -13,21 +13,24 @@ import {IssueCard} from "../../components/IssueCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const SearchPage = () => {
-    const [items, setItems] = useState<ListType[]>();
+    const [items, setItems] = useState<ListType[]>([]);
     const {searchTerm = '', searchEntity} = useSelector((state: RootState) => state.app);
-    const [totalCounts, setTotalCounts] = useState<number>(0)
+    const [totalCounts, setTotalCounts] = useState<number>(1)
     const [hasMoreData, setHasMoreData] = useState<boolean>(true)
-
+    const [page, setPage] = useState(1)
 
     useEffect(() => {
         fetchData()
     }, [searchEntity, searchTerm]);
 
-
     const fetchData = () => {
-        if (items && items.length >= totalCounts) {
+        if (items.length >= totalCounts) {
             setHasMoreData(false)
             return false
+        }
+
+        if (!searchTerm) {
+            setItems([])
         }
 
         (async () => {
@@ -35,21 +38,33 @@ const SearchPage = () => {
                 const response = await getList(searchTerm, searchEntity);
                 setItems(response.items);
                 setTotalCounts(response.total_count)
+                setPage(1)
             }
         })();
     };
 
+    const nextPage = () => {
+        (async () => {
+            if (searchEntity && searchTerm) {
+                const updatedPage = page + 1
+                const response = await getList(searchTerm, searchEntity, updatedPage);
+                setItems([...items, ...response.items]);
+                setPage(updatedPage)
+            }
+        })()
+    }
 
     return (
         <section className={`search-page ${searchTerm ? 'has-search-value' : ''}`}>
             <Search/>
 
             <InfiniteScroll
-                dataLength={items?.length || 0}
-                next={fetchData}
+                dataLength={items.length}
+                next={nextPage}
                 hasMore={hasMoreData}
                 refreshFunction={() => null}
                 loader={<h4>Loading...</h4>}
+                scrollThreshold={1}
             >
                 {searchEntity === Entity.USERS && <List<ListType> items={items} renderItem={UserCard}/>}
                 {searchEntity === Entity.ISSUES && <List<ListType> items={items} renderItem={IssueCard}/>}

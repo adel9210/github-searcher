@@ -1,12 +1,13 @@
 import {Card} from '../Card/Card';
-import {ListType, User} from "../../store/definations";
+import {ListType, User as IUser} from "../../store/definations";
+import {User} from "../User";
 
 export const UserCard = (props: ListType) => {
-    const user = props as Extract<ListType, User>
+    const user = props as Extract<ListType, IUser>
 
     return (
         <Card>
-            <h1>User Name: {user.login}</h1>
+            <User user={user} />
         </Card>
     );
 };

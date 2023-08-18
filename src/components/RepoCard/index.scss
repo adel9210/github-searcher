@@ -1,0 +1,23 @@
+.repo {
+  &__name {
+    color: #0969da;
+    text-decoration: none;
+    word-wrap: break-word;
+  }
+
+  &__description {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  &__topics {
+    padding: 0;
+    list-style: none;
+
+    margin-bottom: 4px;
+    margin-top: 10ppx;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

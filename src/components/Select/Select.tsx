@@ -12,7 +12,6 @@ export const Select = (props: Props) => {
         props.onChange(entity)
     }
 
-
     return (
         <select
             defaultValue={props.defaultSelect}

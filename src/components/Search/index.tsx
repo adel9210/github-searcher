@@ -15,7 +15,11 @@ export const Search = () => {
     const {searchTerm,searchEntity} = useSelector((state: RootState) => state.app);
 
     const handleSearchTermChange = debounce((value: string) => {
-        dispatch(setSearchTerm(value));
+        if (value.length > 2){
+            dispatch(setSearchTerm(value));
+        }else {
+            dispatch(setSearchTerm(''));
+        }
     }, 1000);
 
     const handleEntityChange = (value: Entity) => {
@@ -28,7 +32,7 @@ export const Search = () => {
                 <img src={GitHubLogo} alt="Logo"/>
                 <div>
                     <h2>Github Searcher</h2>
-                    <p>Search users or repositories below</p>
+                    <p className='search-bar__header__slogan'>Search users or repositories below</p>
                 </div>
             </div>
 

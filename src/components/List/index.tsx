@@ -9,10 +9,6 @@ export const List = <T extends object>({items, renderItem}: ListProps<T>) => {
             {items?.map((item: T, i: number) => (
                 <div key={i}>{renderItem(item)}</div>
             ))}
-
-            {
-                !items?.length && <p>No Records!</p>
-            }
         </div>
     );
 };
