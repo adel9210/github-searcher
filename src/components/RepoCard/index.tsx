@@ -12,9 +12,9 @@ export const RepoCard = (props: ListType) => {
             <div className="repo">
                 <a href={repo.html_url} target='_blank' className='repo__name'>{repo.full_name}</a>
                 <p className='repo__description'>{repo.description}</p>
-                <User user={repo.owner} />
+                <User user={repo.owner}/>
                 <ul className='repo__topics'>
-                    {repo.topics?.map(topic => <Chip text={topic} key={topic} />)}
+                    {repo.topics?.map(topic => <Chip text={topic} key={topic}/>)}
                 </ul>
             </div>
         </Card>

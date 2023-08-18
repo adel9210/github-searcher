@@ -3,55 +3,54 @@ import {List} from '../../components/List';
 import {UserCard} from '../../components/UserCard';
 import {useEffect, useState} from 'react';
 import {Entity, ListType} from '../../store/definations';
-import {getList} from "../../services/client.service";
 import {useSelector} from "react-redux";
-
-import './index.scss';
 import {RootState} from "../../store";
 import {RepoCard} from "../../components/RepoCard";
 import {IssueCard} from "../../components/IssueCard";
 import InfiniteScroll from "react-infinite-scroll-component";
+import {useGetListMutation} from "../../store/api";
+import './index.scss';
+import {Loading} from "../../components/Loading";
 
 const SearchPage = () => {
     const [items, setItems] = useState<ListType[]>([]);
-    const {searchTerm = '', searchEntity} = useSelector((state: RootState) => state.app);
+    const {searchTerm = '', searchEntity = Entity.USERS} = useSelector((state: RootState) => state.app);
     const [totalCounts, setTotalCounts] = useState<number>(1)
     const [hasMoreData, setHasMoreData] = useState<boolean>(true)
     const [page, setPage] = useState(1)
-
-    useEffect(() => {
-        fetchData()
-    }, [searchEntity, searchTerm]);
+    const [fetchList, {data, isLoading}] = useGetListMutation()
 
     const fetchData = () => {
         if (items.length >= totalCounts) {
             setHasMoreData(false)
-            return false
+            return;
         }
 
         if (!searchTerm) {
-            setItems([])
+            setItems([]);
+            return;
         }
 
-        (async () => {
-            if (searchEntity && searchTerm) {
-                const response = await getList(searchTerm, searchEntity);
-                setItems(response.items);
-                setTotalCounts(response.total_count)
-                setPage(1)
-            }
-        })();
+        fetchList({searchTerm, searchEntity, page})
     };
 
+    useEffect(() => {
+        fetchData()
+    }, [searchEntity, searchTerm, page]);
+
+    useEffect(() => {
+        const itemsData = items.concat(data?.items || [])
+        setItems(itemsData)
+        setTotalCounts(data?.total_count || 1)
+
+    }, [data?.items])
+
+    useEffect(() => {
+        setItems([])
+    }, [searchEntity])
+
     const nextPage = () => {
-        (async () => {
-            if (searchEntity && searchTerm) {
-                const updatedPage = page + 1
-                const response = await getList(searchTerm, searchEntity, updatedPage);
-                setItems([...items, ...response.items]);
-                setPage(updatedPage)
-            }
-        })()
+        setPage((oldValue) => oldValue + 1)
     }
 
     return (
@@ -71,6 +70,7 @@ const SearchPage = () => {
                 {searchEntity === Entity.REPO && <List<ListType> items={items} renderItem={RepoCard}/>}
             </InfiniteScroll>
 
+            {isLoading && <Loading/>}
         </section>
     );
 };

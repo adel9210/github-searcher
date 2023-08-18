@@ -6,15 +6,16 @@ interface Props {
 }
 
 export const Select = (props: Props) => {
+    const {onChange, defaultSelect} = props
 
     const handleChange = (value: string) => {
         const entity = value as Entity
-        props.onChange(entity)
+        onChange(entity)
     }
 
     return (
         <select
-            defaultValue={props.defaultSelect}
+            defaultValue={defaultSelect}
             className="form-control form-control--select"
             onChange={(event) => handleChange(event.target.value)}>
             <option value="users">Users</option>

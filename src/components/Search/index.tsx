@@ -12,12 +12,12 @@ import {RootState} from "../../store";
 
 export const Search = () => {
     const dispatch = useDispatch();
-    const {searchTerm,searchEntity} = useSelector((state: RootState) => state.app);
+    const {searchTerm, searchEntity} = useSelector((state: RootState) => state.app);
 
     const handleSearchTermChange = debounce((value: string) => {
-        if (value.length > 2){
+        if (value.length > 2) {
             dispatch(setSearchTerm(value));
-        }else {
+        } else {
             dispatch(setSearchTerm(''));
         }
     }, 1000);

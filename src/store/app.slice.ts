@@ -1,13 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Entity} from "./definations";
 
-export interface CounterState {
+export interface AppState {
     isLoading: boolean,
     searchTerm: string;
     searchEntity: Entity
 }
 
-let initialState: Partial<CounterState> = {
+let initialState: Partial<AppState> = {
     searchEntity: Entity.USERS
 }
 
@@ -15,9 +15,6 @@ export const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setLoading: (state, action: PayloadAction<boolean>) => {
-            state.isLoading = action.payload
-        },
         setSearchTerm: (state, action: PayloadAction<string>) => {
             state.searchTerm = action.payload
         },
@@ -27,6 +24,6 @@ export const appSlice = createSlice({
     },
 })
 
-export const {setLoading, setSearchTerm, setSearchEntity} = appSlice.actions
+export const {setSearchTerm, setSearchEntity} = appSlice.actions
 
 export default appSlice.reducer

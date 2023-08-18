@@ -7,7 +7,7 @@ export const UserCard = (props: ListType) => {
 
     return (
         <Card>
-            <User user={user} />
+            <User user={user}/>
         </Card>
     );
 };

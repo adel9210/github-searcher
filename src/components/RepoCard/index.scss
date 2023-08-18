@@ -8,6 +8,7 @@
   &__description {
     font-size: 14px;
     margin-bottom: 10px;
+    word-wrap: break-word;
   }
 
   &__topics {
@@ -15,7 +16,7 @@
     list-style: none;
 
     margin-bottom: 4px;
-    margin-top: 10ppx;
+    margin-top: 10 ppx;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
