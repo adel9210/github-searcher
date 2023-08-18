@@ -1,10 +1,12 @@
 import {Card} from '../Card/Card';
-import {Issue} from "../../store/definations";
+import {Issue, ListType} from "../../store/definations";
 
-export const IssueCard = (issue: Issue) => {
+export const IssueCard = (props: ListType) => {
+    const issue = props as Extract<ListType, Issue>
+
     return (
         <Card>
-            <h1>Issue Card</h1>
+            <h3>{issue.title}</h3>
         </Card>
     );
 };

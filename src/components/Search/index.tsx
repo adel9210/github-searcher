@@ -5,18 +5,22 @@ import GitHubLogo from '../../assets/github-logo.png';
 import './index.scss';
 import {debounce} from '../../helpers/debounce';
 import {Entity} from "../../store/definations";
+import {useDispatch, useSelector} from "react-redux";
+import {setSearchEntity, setSearchTerm} from "../../store/app.slice";
+import {RootState} from "../../store";
 
-interface Props {
-    onInputChange: (value: string) => void;
-    onSelectChange: (value: Entity) => void;
-}
 
-export const Search = (props: Props) => {
-    const {onInputChange, onSelectChange} = props;
+export const Search = () => {
+    const dispatch = useDispatch();
+    const {searchTerm,searchEntity} = useSelector((state: RootState) => state.app);
 
-    const handleChange = debounce((value: string) => {
-        onInputChange(value);
+    const handleSearchTermChange = debounce((value: string) => {
+        dispatch(setSearchTerm(value));
     }, 1000);
+
+    const handleEntityChange = (value: Entity) => {
+        dispatch(setSearchEntity(value));
+    }
 
     return (
         <section className="search-bar">
@@ -30,10 +34,10 @@ export const Search = (props: Props) => {
 
             <div className="search-bar__search">
                 <div className="search-bar__search__input">
-                    <Input onChange={handleChange}/>
+                    <Input defaultValue={searchTerm} onChange={handleSearchTermChange}/>
                 </div>
                 <div className="search-bar__search__select">
-                    <Select onChange={onSelectChange}/>
+                    <Select defaultSelect={searchEntity} onChange={handleEntityChange}/>
                 </div>
             </div>
         </section>

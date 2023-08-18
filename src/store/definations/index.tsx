@@ -23,7 +23,6 @@ export interface Repo {
 
 export type ListType = User | Issue | Repo
 
-// export type Entity = 'users' | 'repositories' | 'issues'
 
 export enum Entity {
     USERS = 'users',

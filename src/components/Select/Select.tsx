@@ -2,6 +2,7 @@ import {Entity} from "../../store/definations";
 
 interface Props {
     onChange: (value: Entity) => void;
+    defaultSelect?: Entity
 }
 
 export const Select = (props: Props) => {
@@ -14,6 +15,7 @@ export const Select = (props: Props) => {
 
     return (
         <select
+            defaultValue={props.defaultSelect}
             className="form-control form-control--select"
             onChange={(event) => handleChange(event.target.value)}>
             <option value="users">Users</option>
